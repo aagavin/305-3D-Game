@@ -1,6 +1,6 @@
 # Assignment 3 
 
-LOGO
+![Company Logo](img/logo.png "Logo Title Text 1")
 
 
 # Table of contents
