@@ -14,7 +14,7 @@ This is a first person shooter that takes place in on office. The player shoots 
 
 # Interface Sketch
 
-![Interface Sketch](img/interface_sketch.png "Interface Sketch 1")
+![Interface Sketch](img/Interface_sketch.png "Interface Sketch 1")
 
 # Screen Descriptions
 
