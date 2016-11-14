@@ -33,3 +33,9 @@ The player needs uses a sonic screwdriver a defeate the enemies. The player gets
 # Sound Index
 
 # Art/Multimendia Index
+
+| Name | Art | Source |
+|-----|--------|---|
+|Sonic screwdriver |        |   |
+|     |        |   |
+|     |        |   |
