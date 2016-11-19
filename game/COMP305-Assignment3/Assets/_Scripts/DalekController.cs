@@ -4,23 +4,24 @@ using System.Collections;
 public class DalekController : MonoBehaviour {
 
 	//private varables
-	private Transform _transform;
+	private Transform _player;
+	private GameObject _scoreBoardController;
 
 	// public varable
-	public GameObject ScoreBoardController;
+	public NavMeshAgent Agent;
 
 
 
-	// Use this for initialization
-	void Start () {
-		this._transform = this.GetComponent<Transform> ();
-	}
-	
 	/// <summary>
-	/// Fixed update runs every frame
+	/// Use this for initialization
 	/// </summary>
-	void FixedUpdate () {
-		this._transform.Translate (Vector3.forward * (Time.deltaTime*2));
+	void Start () {
+		this._scoreBoardController = GameObject.FindGameObjectWithTag ("ScoreBoard");
+		this._player = GameObject.FindWithTag ("Player").transform;
+	}
+
+	void Update(){
+		this.Agent.SetDestination (this._player.position);
 	}
 
 	/// <summary>
@@ -30,7 +31,7 @@ public class DalekController : MonoBehaviour {
 	private void OnCollisionEnter(Collision other){
 		if (other.gameObject.CompareTag("Player") ){
 			Debug.Log (other.gameObject.tag + System.DateTime.Now);
-			ScoreBoardController.GetComponent<ScoreBoardController> ().HealthHit ();
+			_scoreBoardController.GetComponent<GameController> ().HealthHit ();
 
 		}
 
