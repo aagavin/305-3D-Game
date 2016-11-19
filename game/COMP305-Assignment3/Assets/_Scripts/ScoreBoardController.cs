@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+<<<<<<< HEAD
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine.UI;
@@ -65,6 +66,14 @@ public class ScoreBoardController : MonoBehaviour {
 		this._invulnerable = false;
 		this._health = 100;
 		this.invulnerableTime = 1.5f;
+=======
+
+public class ScoreBoardController : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+>>>>>>> c57f8624c52874158a3edb5d8320ea6d28295f5f
 	}
 
 }

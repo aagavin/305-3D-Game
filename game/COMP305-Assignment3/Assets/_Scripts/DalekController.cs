@@ -3,12 +3,18 @@ using System.Collections;
 
 public class DalekController : MonoBehaviour {
 
+<<<<<<< HEAD
 	//private varables
 	private Transform _transform;
 
 	// public varable
 	public GameObject ScoreBoardController;
 
+=======
+
+	// public varable
+	public Transform _transform;
+>>>>>>> c57f8624c52874158a3edb5d8320ea6d28295f5f
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +28,7 @@ public class DalekController : MonoBehaviour {
 		this._transform.Translate (Vector3.forward * (Time.deltaTime*2));
 	}
 
+<<<<<<< HEAD
 	/// <summary>
 	/// Raises the collision enter event.
 	/// </summary>
@@ -32,5 +39,9 @@ public class DalekController : MonoBehaviour {
 			ScoreBoardController.GetComponent<ScoreBoardController> ().HealthHit ();
 
 		}
+=======
+	private void OnCollisionEnter(Collision other){
+		Debug.Log (other.gameObject.tag);
+>>>>>>> c57f8624c52874158a3edb5d8320ea6d28295f5f
 	}
 }
