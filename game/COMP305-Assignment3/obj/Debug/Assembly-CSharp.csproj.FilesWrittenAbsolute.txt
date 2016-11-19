@@ -1,0 +1,17 @@
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/UnityEngine.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/UnityEditor.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Mono.Cecil.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Unity.DataContract.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/obj/Debug/Assembly-CSharp.dll
+/Users/rbcdev/Documents/rewards/305-3D-Game/game/COMP305-Assignment3/obj/Debug/Assembly-CSharp.dll.mdb
