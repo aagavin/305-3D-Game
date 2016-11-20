@@ -10,7 +10,7 @@ public class DalekController : MonoBehaviour {
 
 	// public varable
 	public NavMeshAgent Agent;
-
+	public AudioClip DeathSound;
 
 	public int Life {
 		get{
@@ -21,6 +21,7 @@ public class DalekController : MonoBehaviour {
 			if(this._life==0){
 				this._gameController.GetComponent<GameController> ().DalekSpawnCount--;
 				this._gameController.GetComponent<GameController> ().Score+=5;
+				AudioSource.PlayClipAtPoint (DeathSound, this.transform.position, 50f);
 				GameObject.Destroy (this.gameObject);
 			}
 		}

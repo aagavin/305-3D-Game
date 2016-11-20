@@ -19,6 +19,8 @@ public class PlayerFire : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Input.GetButtonDown ("Fire1")) {
+
+			Firesound.volume = .1f;
 			Firesound.Play ();
 
 			GameObject fe = (GameObject)Instantiate (FireEffect, FirePosition.position,FirePosition.rotation);
