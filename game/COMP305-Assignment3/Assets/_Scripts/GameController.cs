@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -20,14 +21,11 @@ public class GameController : MonoBehaviour {
 	public Text HelthText;
 	public Text AmoText;
 
-
 	//
 	public Text GameOverText;
 	public Button RestartButton;
 
-
 	public Transform Dalek;
-
 
 
 	//test public
@@ -68,6 +66,10 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+
+	/// <summary>
+	/// Hit function
+	/// </summary>
 	public void HealthHit(){
 		if (!this._invulnerable) {
 			this.Health -= 10;
@@ -85,6 +87,11 @@ public class GameController : MonoBehaviour {
 				GameOverText.gameObject.SetActive(true);
 				RestartButton.gameObject.SetActive(true);
 
+				int highScore = PlayerPrefs.GetInt ("HighScore");
+				if (this._score > highScore) {
+					PlayerPrefs.SetInt ("HighScore", this._score);
+				}
+				GameOverText.text="Game Over High Score: "+PlayerPrefs.GetInt ("HighScore");
 				Cursor.lockState = CursorLockMode.None;
 
 			}
@@ -115,6 +122,7 @@ public class GameController : MonoBehaviour {
 		// hide end game stuff
 		GameOverText.gameObject.SetActive(false);
 		RestartButton.gameObject.SetActive(false);
+		PlayerPrefs.SetInt ("HighScore", 0);
 	}
 
 	private void _spawnDaleks(){
@@ -126,6 +134,18 @@ public class GameController : MonoBehaviour {
 
 			Instantiate (Dalek, position, Quaternion.identity);
 		}
+	}
+
+
+	public void Reset(){
+		int highScore = PlayerPrefs.GetInt ("HighScore");
+		if (this._score > highScore) {
+			PlayerPrefs.SetInt ("HighScore", this._score);
+		}
+	
+		Time.timeScale = 1;
+
+		SceneManager.LoadScene (0);
 	}
 
 }
