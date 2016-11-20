@@ -10,6 +10,7 @@ public class PlayerFire : MonoBehaviour {
 	public AudioSource Firesound;
 	public Transform FirePosition;
 	public GameObject FireEffect;
+	public AudioSource HealthSound;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +24,7 @@ public class PlayerFire : MonoBehaviour {
 			Firesound.volume = .1f;
 			Firesound.Play ();
 
-			GameObject fe = (GameObject)Instantiate (FireEffect, FirePosition.position,FirePosition.rotation);
+			GameObject fe = (GameObject) GameObject.Instantiate (FireEffect, FirePosition.position,FirePosition.rotation);
 			fe.transform.parent = FirePosition;
 
 			RaycastHit hit;
@@ -35,6 +36,14 @@ public class PlayerFire : MonoBehaviour {
 
 			GameObject.Destroy (fe, 2f);
 
+		}
+	}
+
+	public void OnCollisionEnter(Collision other){
+		if(other.gameObject.CompareTag("Pickup")){
+			HealthSound.Play ();
+			GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<GameController>().Health+=5;
+			GameObject.Destroy (other.gameObject);
 		}
 	}
 }

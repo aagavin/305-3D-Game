@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
 	public Button RestartButton;
 
 	public Transform Dalek;
+	public Transform Pickup;
 
 
 	//test public
@@ -131,8 +132,13 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < (this._waveNum * 3); i++) {
 			int rand = Random.Range (0, 4);
 			Vector3 position = (Spawnpoints [rand]).transform.position;
-
 			Instantiate (Dalek, position, Quaternion.identity);
+
+			//spawn player pickup on random locations
+			if (Random.Range(0,10) % 2 ==0 && Health < 100) {
+				Transform go = (Transform) Instantiate (Pickup, position, Quaternion.identity);
+				GameObject.Destroy (go.gameObject, 30f);
+			}
 		}
 	}
 
