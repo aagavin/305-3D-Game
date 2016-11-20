@@ -19,6 +19,13 @@ public class GameController : MonoBehaviour {
 	public Text ScoreText;
 	public Text HelthText;
 	public Text AmoText;
+
+
+	//
+	public Text GameOverText;
+	public Button RestartButton;
+
+
 	public Transform Dalek;
 
 
@@ -64,6 +71,23 @@ public class GameController : MonoBehaviour {
 	public void HealthHit(){
 		if (!this._invulnerable) {
 			this.Health -= 10;
+			if (this.Health == 0) {
+				//sound for game over
+
+				//
+				Time.timeScale=0;
+//				GameObject.FindGameObjectWithTag ("Player").SetActive(false);
+
+				this.ScoreText.gameObject.SetActive(false);
+				this.HelthText.gameObject.SetActive(false);
+				this.AmoText.gameObject.SetActive(false);
+
+				GameOverText.gameObject.SetActive(true);
+				RestartButton.gameObject.SetActive(true);
+
+				Cursor.lockState = CursorLockMode.None;
+
+			}
 			this._setInvulnerable ();
 		}
 		
@@ -87,6 +111,10 @@ public class GameController : MonoBehaviour {
 		this.invulnerableTime = 1.5f;
 		Spawnpoints = GameObject.FindGameObjectsWithTag ("Spawnpoint");
 		this._spawnDaleks ();
+
+		// hide end game stuff
+		GameOverText.gameObject.SetActive(false);
+		RestartButton.gameObject.SetActive(false);
 	}
 
 	private void _spawnDaleks(){
