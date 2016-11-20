@@ -6,6 +6,8 @@ public class PlayerFire : MonoBehaviour {
 
 	//public
 	public AudioSource Firesound;
+	public Transform FirePosition;
+	public GameObject FireEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +18,11 @@ public class PlayerFire : MonoBehaviour {
 	void FixedUpdate () {
 		if (Input.GetButtonDown ("Fire1")) {
 			Firesound.Play ();
+
+			GameObject fe = (GameObject)Instantiate (FireEffect, FirePosition.position,FirePosition.rotation);
+			fe.transform.parent = FirePosition;
+			GameObject.Destroy (fe, 2f);
+
 		}
 	}
 }

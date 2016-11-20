@@ -11,7 +11,6 @@ public class DalekController : MonoBehaviour {
 	public NavMeshAgent Agent;
 
 
-
 	/// <summary>
 	/// Use this for initialization
 	/// </summary>
