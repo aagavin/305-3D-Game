@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerFire : MonoBehaviour {
 
+	//private
+	private Transform _transform;
 
 	//public
 	public AudioSource Firesound;
@@ -11,7 +13,7 @@ public class PlayerFire : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		this._transform = this.GetComponent<Transform> ();
 	}
 	
 	// Update is called once per frame
@@ -21,6 +23,14 @@ public class PlayerFire : MonoBehaviour {
 
 			GameObject fe = (GameObject)Instantiate (FireEffect, FirePosition.position,FirePosition.rotation);
 			fe.transform.parent = FirePosition;
+
+			RaycastHit hit;
+			if (Physics.Raycast (this._transform.position, this._transform.forward, out hit)) {
+				if (hit.transform.gameObject.CompareTag ("Enemy")) {
+					hit.transform.gameObject.GetComponent<DalekController> ().Life -= 1;
+				}
+			}
+
 			GameObject.Destroy (fe, 2f);
 
 		}
