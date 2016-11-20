@@ -5,19 +5,34 @@ public class DalekController : MonoBehaviour {
 
 	//private varables
 	private Transform _player;
-	private GameObject _scoreBoardController;
+	private GameObject _gameController;
+	private int _life;
 
 	// public varable
 	public NavMeshAgent Agent;
 
 
+	public int Life {
+		get{
+			return this._life;
+		}
+		set{
+			this._life = value;
+			if(this._life==0){
+				this._gameController.GetComponent<GameController> ().DalekSpawnCount--;
+				this._gameController.GetComponent<GameController> ().Score+=5;
+				GameObject.Destroy (this.gameObject);
+			}
+		}
+	}
 
 	/// <summary>
 	/// Use this for initialization
 	/// </summary>
 	void Start () {
-		this._scoreBoardController = GameObject.FindGameObjectWithTag ("ScoreBoard");
+		this._gameController = GameObject.FindGameObjectWithTag ("ScoreBoard");
 		this._player = GameObject.FindWithTag ("Player").transform;
+		this._life = 2;
 	}
 
 	void Update(){
@@ -30,8 +45,10 @@ public class DalekController : MonoBehaviour {
 	/// <param name="other">Other.</param>
 	private void OnCollisionEnter(Collision other){
 		if (other.gameObject.CompareTag("Player") ){
+			other.gameObject.GetComponent<Rigidbody> ().velocity *=-500;
+
 			Debug.Log (other.gameObject.tag + System.DateTime.Now);
-			_scoreBoardController.GetComponent<GameController> ().HealthHit ();
+			_gameController.GetComponent<GameController> ().HealthHit ();
 
 		}
 
