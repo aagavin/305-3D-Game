@@ -44,7 +44,7 @@ public class DalekController : MonoBehaviour {
 	/// Raises the collision enter event.
 	/// </summary>
 	/// <param name="other">Other.</param>
-	private void OnCollisionEnter(Collision other){
+	public void OnCollisionEnter(Collision other){
 		if (other.gameObject.CompareTag("Player") ){
 			other.gameObject.GetComponent<Rigidbody> ().velocity *=-500;
 
