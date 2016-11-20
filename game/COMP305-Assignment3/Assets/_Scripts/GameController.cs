@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 	private bool _invulnerable;
 	private GameObject[] Spawnpoints;
 	private int _waveNum =1;
+	private int _dalekSpawnCount;
 
 	// public varables
 	public Text ScoreText;
@@ -20,8 +21,24 @@ public class GameController : MonoBehaviour {
 	public Text AmoText;
 	public Transform Dalek;
 
+
+
 	//test public
 	public float invulnerableTime;
+
+	//
+	public int DalekSpawnCount {
+		get{
+			return _dalekSpawnCount;
+		}
+		set{
+			this._dalekSpawnCount = value;
+			if (this._dalekSpawnCount == 0) {
+				this._waveNum++;
+				this._spawnDaleks ();
+			}
+		}
+	}
 
 	public int Score {
 		get{
@@ -73,6 +90,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void _spawnDaleks(){
+		this._dalekSpawnCount = this._waveNum * 3;
+
 		for (int i = 0; i < (this._waveNum * 3); i++) {
 			int rand = Random.Range (0, 4);
 			Vector3 position = (Spawnpoints [rand]).transform.position;
