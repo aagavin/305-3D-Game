@@ -7,6 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+
+
+
+
+	/*
+	 * 
+	 * PUBLIC AND PRIVATE VARABLES
+	 * 
+	 */
+
 	// private varables
 	private int _score;
 	private int _health;
@@ -15,6 +25,9 @@ public class GameController : MonoBehaviour {
 	private GameObject[] Spawnpoints;
 	private int _waveNum =1;
 	private int _dalekSpawnCount;
+	private float _invulnerableTime;
+	private bool _decreaseAmo;
+
 
 	// public varables
 	public Text ScoreText;
@@ -29,8 +42,13 @@ public class GameController : MonoBehaviour {
 	public Transform Pickup;
 
 
-	//test public
-	public float invulnerableTime;
+	/*
+	 * 
+	 * PROPITIES
+	 * 
+	 */
+
+
 
 	//
 	public int DalekSpawnCount {
@@ -57,6 +75,23 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public int Amo {
+		get{
+			return this._amo;
+		}
+		set{
+			this._amo = value;
+			AmoText.text = "Heat: "+this._amo.ToString()+"%";
+			if (Amo == 100) {
+				AmoText.color = Color.red;
+				this._decreaseAmo = true;
+				Invoke ("_resetAmo", 5f);
+			} else if (Amo == 0) {
+				this._decreaseAmo = false;
+			}
+		}
+	}
+
 	public int Health {
 		get{
 			return this._health;
@@ -67,6 +102,27 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+
+	/// <summary>
+	/// Used for initialization of 
+	/// varables
+	/// </summary>
+	void Start () {
+		this._invulnerable = false;
+		this._health = 100;
+		this._amo = 0;
+		this._invulnerableTime = 1.5f;
+
+		this._decreaseAmo = false;
+
+		Spawnpoints = GameObject.FindGameObjectsWithTag ("Spawnpoint");
+		this._spawnDaleks ();
+
+		// hide end game stuff
+		GameOverText.gameObject.SetActive(false);
+		RestartButton.gameObject.SetActive(false);
+		PlayerPrefs.SetInt ("HighScore", 0);
+	}
 
 	/// <summary>
 	/// Hit function
@@ -101,9 +157,13 @@ public class GameController : MonoBehaviour {
 		
 	}
 
+
+	/// <summary>
+	/// Makes the player Invulnerable for <invulnerableTime>
+	/// </summary>
 	private void _setInvulnerable(){
 		this._invulnerable = true;
-		Invoke("_setVulnerable", invulnerableTime);
+		Invoke("_setVulnerable", _invulnerableTime);
 
 	}
 
@@ -112,19 +172,6 @@ public class GameController : MonoBehaviour {
 	}
 
 
-	// Use this for initialization
-	void Start () {
-		this._invulnerable = false;
-		this._health = 100;
-		this.invulnerableTime = 1.5f;
-		Spawnpoints = GameObject.FindGameObjectsWithTag ("Spawnpoint");
-		this._spawnDaleks ();
-
-		// hide end game stuff
-		GameOverText.gameObject.SetActive(false);
-		RestartButton.gameObject.SetActive(false);
-		PlayerPrefs.SetInt ("HighScore", 0);
-	}
 
 	private void _spawnDaleks(){
 		this._dalekSpawnCount = this._waveNum * 3;
@@ -140,6 +187,12 @@ public class GameController : MonoBehaviour {
 				GameObject.Destroy (go.gameObject, 30f);
 			}
 		}
+	}
+
+	private void _resetAmo(){
+		Debug.Log("RESET AMOOOO");
+		this.Amo = 0;
+		this.AmoText.color = Color.white;
 	}
 
 
