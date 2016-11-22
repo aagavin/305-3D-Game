@@ -1,17 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * Pedro Bento
+ * Aaron Fernandes - 300773526
+ * 
+ * COMP 305 - Assignment 3
+ */ 
+
+
+
+/// <summary>
+/// Player fire.
+/// </summary>
 public class PlayerFire : MonoBehaviour {
 
-	//private
+	/************** PRIVATE VARABLES **************/
 	private Transform _transform;
 
-	//public
+	/************** PUBLIC  VARABLES **************/
 	public AudioSource Firesound;
 	public Transform FirePosition;
 	public GameObject FireEffect;
 	public AudioSource HealthSound;
 
+
+	/************** PRIVATE FUNCTIONS  **************/
 	// Use this for initialization
 	void Start () {
 		this._transform = this.GetComponent<Transform> ();
@@ -46,6 +60,7 @@ public class PlayerFire : MonoBehaviour {
 		}
 	}
 
+	/************** PUBLIC FUNCTIONS **************/
 
 	/// <summary>
 	/// Raises the collision enter event.

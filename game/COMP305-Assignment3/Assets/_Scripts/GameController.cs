@@ -5,19 +5,22 @@ using System.Globalization;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/*
+ * Pedro Bento
+ * Aaron Fernandes
+ * 
+ * COMP 305 - Assignment 3
+ */ 
+
+
+/// <summary>
+/// Game controller.
+/// </summary>
 public class GameController : MonoBehaviour {
 
 
 
-
-
-	/*
-	 * 
-	 * PUBLIC AND PRIVATE VARABLES
-	 * 
-	 */
-
-	// private varables
+	/************** PRIVATE VARABLES **************/
 	private int _score;
 	private int _health;
 	private int _amo;
@@ -29,7 +32,7 @@ public class GameController : MonoBehaviour {
 	private bool _decreaseAmo;
 
 
-	// public varables
+	/************** PUBLIC  VARABLES **************/
 	public Text ScoreText;
 	public Text HelthText;
 	public Text AmoText;
@@ -42,15 +45,13 @@ public class GameController : MonoBehaviour {
 	public Transform Pickup;
 
 
-	/*
-	 * 
-	 * PROPITIES
-	 * 
-	 */
+	/************** PUBLIC  PROPITIES **************/
 
 
-
-	//
+	/// <summary>
+	/// Gets or sets the dalek spawn count.
+	/// </summary>
+	/// <value>The dalek spawn count.</value>
 	public int DalekSpawnCount {
 		get{
 			return _dalekSpawnCount;
@@ -64,6 +65,10 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the score.
+	/// </summary>
+	/// <value>The score.</value>
 	public int Score {
 		get{
 			return this._score;
@@ -75,6 +80,10 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the amo.
+	/// </summary>
+	/// <value>The amo.</value>
 	public int Amo {
 		get{
 			return this._amo;
@@ -92,6 +101,10 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the health.
+	/// </summary>
+	/// <value>The health.</value>
 	public int Health {
 		get{
 			return this._health;
@@ -102,6 +115,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	/************** PRIVATE FUNCTIONS  **************/
 
 	/// <summary>
 	/// Used for initialization of 
@@ -124,6 +138,69 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.SetInt ("HighScore", 0);
 	}
 
+
+
+	/// <summary>
+	/// Makes the player Invulnerable for <invulnerableTime>
+	/// </summary>
+	private void _setInvulnerable(){
+		this._invulnerable = true;
+		Invoke("_setVulnerable", _invulnerableTime);
+
+	}
+
+	/// <summary>
+	/// Sets the vulnerablity
+	/// </summary>
+	private void _setVulnerable(){
+		this._invulnerable = false;
+	}
+
+
+	/// <summary>
+	/// Spawns the daleks.
+	/// </summary>
+	private void _spawnDaleks(){
+		this._dalekSpawnCount = this._waveNum * 3;
+
+		for (int i = 0; i < (this._waveNum * 3); i++) {
+			int rand = Random.Range (0, 4);
+			Vector3 position = (Spawnpoints [rand]).transform.position;
+			Instantiate (Dalek, position, Quaternion.identity);
+
+			//spawn player pickup on random locations
+			if (Random.Range(0,10) % 2 ==0 && Health < 100) {
+				Transform go = (Transform) Instantiate (Pickup, position, Quaternion.identity);
+				GameObject.Destroy (go.gameObject, 30f);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Resets the amo.
+	/// </summary>
+	private void _resetAmo(){
+		Debug.Log("RESET AMOOOO");
+		this.Amo = 0;
+		this.AmoText.color = Color.white;
+	}
+
+	/// <summary>
+	/// Reset this instance.
+	/// </summary>
+	public void Reset(){
+		int highScore = PlayerPrefs.GetInt ("HighScore");
+		if (this._score > highScore) {
+			PlayerPrefs.SetInt ("HighScore", this._score);
+		}
+	
+		Time.timeScale = 1;
+
+		SceneManager.LoadScene (0);
+	}
+
+	/************** PUBLIC FUNCTIONS **************/
+
 	/// <summary>
 	/// Hit function
 	/// </summary>
@@ -135,7 +212,7 @@ public class GameController : MonoBehaviour {
 
 				//
 				Time.timeScale=0;
-//				GameObject.FindGameObjectWithTag ("Player").SetActive(false);
+				//				GameObject.FindGameObjectWithTag ("Player").SetActive(false);
 
 				this.ScoreText.gameObject.SetActive(false);
 				this.HelthText.gameObject.SetActive(false);
@@ -154,57 +231,6 @@ public class GameController : MonoBehaviour {
 			}
 			this._setInvulnerable ();
 		}
-		
-	}
-
-
-	/// <summary>
-	/// Makes the player Invulnerable for <invulnerableTime>
-	/// </summary>
-	private void _setInvulnerable(){
-		this._invulnerable = true;
-		Invoke("_setVulnerable", _invulnerableTime);
 
 	}
-
-	private void _setVulnerable(){
-		this._invulnerable = false;
-	}
-
-
-
-	private void _spawnDaleks(){
-		this._dalekSpawnCount = this._waveNum * 3;
-
-		for (int i = 0; i < (this._waveNum * 3); i++) {
-			int rand = Random.Range (0, 4);
-			Vector3 position = (Spawnpoints [rand]).transform.position;
-			Instantiate (Dalek, position, Quaternion.identity);
-
-			//spawn player pickup on random locations
-			if (Random.Range(0,10) % 2 ==0 && Health < 100) {
-				Transform go = (Transform) Instantiate (Pickup, position, Quaternion.identity);
-				GameObject.Destroy (go.gameObject, 30f);
-			}
-		}
-	}
-
-	private void _resetAmo(){
-		Debug.Log("RESET AMOOOO");
-		this.Amo = 0;
-		this.AmoText.color = Color.white;
-	}
-
-
-	public void Reset(){
-		int highScore = PlayerPrefs.GetInt ("HighScore");
-		if (this._score > highScore) {
-			PlayerPrefs.SetInt ("HighScore", this._score);
-		}
-	
-		Time.timeScale = 1;
-
-		SceneManager.LoadScene (0);
-	}
-
 }
