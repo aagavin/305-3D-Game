@@ -1,14 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+/*
+ * Pedro Bento
+ * Aaron Fernandes
+ * 
+ * COMP 305 - Assignment 3
+ */ 
 
+
+/// <summary>
+/// Dalek controller.
+/// </summary>
 public class DalekController : MonoBehaviour {
 
-	//private varables
+
+	/************** PRIVATE VARABLES **************/
+
+
 	private Transform _player;
 	private GameObject _gameController;
 	private int _life;
 
-	// public varable
+	/************** PUBLIC  VARABLES **************/
 	public NavMeshAgent Agent;
 	public AudioClip DeathSound;
 
@@ -27,6 +40,8 @@ public class DalekController : MonoBehaviour {
 		}
 	}
 
+	/************** PRIVATE FUNCTIONS  **************/
+
 	/// <summary>
 	/// Use this for initialization
 	/// </summary>
@@ -39,6 +54,8 @@ public class DalekController : MonoBehaviour {
 	void Update(){
 		this.Agent.SetDestination (this._player.position);
 	}
+
+	/************** PUBLIC FUNCTIONS **************/
 
 	/// <summary>
 	/// Raises the collision enter event.
