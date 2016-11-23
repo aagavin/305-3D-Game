@@ -29,7 +29,6 @@ public class GameController : MonoBehaviour {
 	private int _waveNum =1;
 	private int _dalekSpawnCount;
 	private float _invulnerableTime;
-	private bool _decreaseAmo;
 
 
 	/************** PUBLIC  VARABLES **************/
@@ -37,13 +36,14 @@ public class GameController : MonoBehaviour {
 	public Text HelthText;
 	public Text AmoText;
 
-	//
 	public Text GameOverText;
 	public Button RestartButton;
 
 	public Transform Dalek;
 	public Transform Pickup;
 
+	public AudioSource GameOverSound;
+	public AudioSource ThemeSound;
 
 	/************** PUBLIC  PROPITIES **************/
 
@@ -90,13 +90,15 @@ public class GameController : MonoBehaviour {
 		}
 		set{
 			this._amo = value;
-			AmoText.text = "Heat: "+this._amo.ToString()+"%";
+			AmoText.text = "Heat: "+this._amo+"%";
 			if (Amo == 100) {
 				AmoText.color = Color.red;
-				this._decreaseAmo = true;
-				Invoke ("_resetAmo", 5f);
-			} else if (Amo == 0) {
-				this._decreaseAmo = false;
+				Invoke ("_resetAmo", 8f);		
+			}
+			else if(Amo > 80){
+				Invoke ("_resetAmo", 3.5f);
+			} else if (Amo <= 15) {
+				AmoText.color = Color.white;
 			}
 		}
 	}
@@ -114,6 +116,7 @@ public class GameController : MonoBehaviour {
 			HelthText.text = "Health: " + this.Health;
 		}
 	}
+		
 
 	/************** PRIVATE FUNCTIONS  **************/
 
@@ -125,9 +128,8 @@ public class GameController : MonoBehaviour {
 		this._invulnerable = false;
 		this._health = 100;
 		this._amo = 0;
+		AmoText.text = "Heat: " + this._amo + "%";
 		this._invulnerableTime = 1.5f;
-
-		this._decreaseAmo = false;
 
 		Spawnpoints = GameObject.FindGameObjectsWithTag ("Spawnpoint");
 		this._spawnDaleks ();
@@ -137,7 +139,7 @@ public class GameController : MonoBehaviour {
 		RestartButton.gameObject.SetActive(false);
 		PlayerPrefs.SetInt ("HighScore", 0);
 	}
-
+		
 
 
 	/// <summary>
@@ -180,7 +182,6 @@ public class GameController : MonoBehaviour {
 	/// Resets the amo.
 	/// </summary>
 	private void _resetAmo(){
-		Debug.Log("RESET AMOOOO");
 		this.Amo = 0;
 		this.AmoText.color = Color.white;
 	}
@@ -207,12 +208,14 @@ public class GameController : MonoBehaviour {
 	public void HealthHit(){
 		if (!this._invulnerable) {
 			this.Health -= 10;
-			if (this.Health == 0) {
-				//sound for game over
+			if (this.Health <= 0) {
+				//Change sounds
+				ThemeSound.Stop ();
+				GameOverSound.Play();
 
 				//
 				Time.timeScale=0;
-				//				GameObject.FindGameObjectWithTag ("Player").SetActive(false);
+
 
 				this.ScoreText.gameObject.SetActive(false);
 				this.HelthText.gameObject.SetActive(false);
