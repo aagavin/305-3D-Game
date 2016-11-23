@@ -34,26 +34,30 @@ public class PlayerFire : MonoBehaviour {
 	/// <summary>
 	/// Update is called once per frame
 	/// </summary>
-	void FixedUpdate () {
+	void Update () {
 		if (Input.GetButtonDown ("Fire1")) {
 			if (GameObject.FindGameObjectWithTag ("ScoreBoard").GetComponent<GameController> ().Amo < 100) {
 
-
+				// play fire sound
 				Firesound.volume = .1f;
 				Firesound.Play ();
 
+				//play fire effect
 				GameObject fe = (GameObject)GameObject.Instantiate (FireEffect, FirePosition.position, FirePosition.rotation);
 				fe.transform.parent = FirePosition;
 
+				//test for hit with enemy
 				RaycastHit hit;
 				if (Physics.Raycast (this._transform.position, this._transform.forward, out hit)) {
 					if (hit.transform.gameObject.CompareTag ("Enemy")) {
 						hit.transform.gameObject.GetComponent<DalekController> ().Life -= 1;
 					}
 				}
-
-				GameObject.Destroy (fe, 2f);
+				// Increase heat count
 				GameObject.FindGameObjectWithTag ("ScoreBoard").GetComponent<GameController> ().Amo+=10;
+				// stop sonic effect after 2s 
+				GameObject.Destroy (fe, 2f);
+
 
 			} 
 

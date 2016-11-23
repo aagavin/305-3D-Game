@@ -65,7 +65,6 @@ public class DalekController : MonoBehaviour {
 		if (other.gameObject.CompareTag("Player") ){
 			other.gameObject.GetComponent<Rigidbody> ().velocity *=-500;
 
-			Debug.Log (other.gameObject.tag + System.DateTime.Now);
 			_gameController.GetComponent<GameController> ().HealthHit ();
 
 		}
